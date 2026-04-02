@@ -1,0 +1,73 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "A product sold in the store.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the product." },
+        "name": { "type": "string", "description": "Name of the oil." },
+        "description": { "type": "string", "description": "Detailed description of the oil." },
+        "price": { "type": "number", "description": "Price in INR." },
+        "category": { "type": "string", "description": "Category (e.g., Cold Pressed, Essential)." },
+        "image": { "type": "string", "description": "URL to the product image." },
+        "stock": { "type": "number", "description": "Available stock quantity." },
+        "benefits": { "type": "array", "items": { "type": "string" }, "description": "List of health benefits." },
+        "usage": { "type": "string", "description": "Instructions for use." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp." }
+      },
+      "required": ["name", "price", "category", "image"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "A customer order.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the order." },
+        "userId": { "type": "string", "description": "ID of the user who placed the order." },
+        "items": { "type": "array", "items": { "type": "object" }, "description": "List of items in the order." },
+        "total": { "type": "number", "description": "Total order amount." },
+        "status": { "type": "string", "enum": ["pending", "processing", "shipped", "delivered", "cancelled"], "description": "Current order status." },
+        "shippingAddress": { "type": "object", "description": "Customer shipping details." },
+        "paymentStatus": { "type": "string", "enum": ["unpaid", "paid", "failed"], "description": "Payment status." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Order timestamp." }
+      },
+      "required": ["userId", "items", "total", "status"]
+    },
+    "User": {
+      "title": "User",
+      "description": "A registered user or admin.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID." },
+        "email": { "type": "string", "description": "User's email address." },
+        "displayName": { "type": "string", "description": "User's full name." },
+        "role": { "type": "string", "enum": ["user", "admin"], "description": "User role." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Account creation timestamp." }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Banner": {
+      "title": "Banner",
+      "description": "A promotional banner for the home page.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the banner." },
+        "title": { "type": "string", "description": "Main title of the banner." },
+        "subtitle": { "type": "string", "description": "Smaller subtitle text." },
+        "image": { "type": "string", "description": "URL to the banner image." },
+        "link": { "type": "string", "description": "URL to redirect when clicked." },
+        "active": { "type": "boolean", "description": "Whether the banner is currently active." },
+        "order": { "type": "number", "description": "Display order." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp." }
+      },
+      "required": ["title", "image", "active"]
+    }
+  },
+  "firestore": {
+    "/products": { "schema": "Product", "description": "Collection of available products." },
+    "/orders": { "schema": "Order", "description": "Collection of customer orders." },
+    "/users": { "schema": "User", "description": "Collection of user profiles." },
+    "/banners": { "schema": "Banner", "description": "Collection of home page banners." }
+  }
+}

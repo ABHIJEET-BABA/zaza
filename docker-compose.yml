@@ -1,0 +1,11 @@
+services:
+  zaza-oils:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/app
