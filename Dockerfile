@@ -1,12 +1,23 @@
-FROM node:18
+# Use Node 20
+FROM node:20
 
+# App directory
 WORKDIR /app
 
+# Copy package files
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
+# Copy all files
 COPY . .
 
-EXPOSE 3000
+# Build app (IMPORTANT)
+RUN npm run build
 
-CMD ["npm", "run", "dev"]
+# Expose port
+EXPOSE 10000
+
+# Start app (PRODUCTION)
+CMD ["npm", "start"]
